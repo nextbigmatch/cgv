@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ExternalLink } from 'lucide-react';
-import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
+import { ImageWithFallback } from '../../../app/components/figma/ImageWithFallback';
 import {
   NexoraLogo,
   HyatusLogo,
@@ -13,7 +13,7 @@ import {
   AtrinetLogo,
   HyatusHeroImg,
   GoldKioskHeroImg
-} from '@/app/components/website/BrandLogos';
+} from '../../../app/components/website/BrandLogos';
 
 interface Client {
   id: string;
@@ -134,7 +134,7 @@ export default function OurClientsSection() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] as const }}
                 className="absolute inset-0"
               >
                 {/* Background Image */}

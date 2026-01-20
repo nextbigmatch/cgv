@@ -2,19 +2,19 @@ import { motion, useInView } from 'motion/react';
 import { useRef } from 'react';
 import { Heart, ShoppingBag, GraduationCap, TrendingUp, Building, Stethoscope } from 'lucide-react';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
-import healthcareImage from 'figma:asset/73e3c245e0b07afd9a3344837647ffa74beed88c.png';
-import ecommerceImage from 'figma:asset/f04184aaeb1543c205d7664196cbd97c1e473b0b.png';
-import educationImage from 'figma:asset/9953c668ebf4cb74c98575d03c977cfc69974498.png';
-import financeImage from 'figma:asset/4704389719e2fd5e09161cd14543715f19918051.png';
-import realEstateImage from 'figma:asset/6515ebfdfd1f300e6e35a7422139614c08f011af.png';
-import professionalServicesImage from 'figma:asset/6b8273e5e14f194dd5dfa0c1ebf52e6ce2ad7cff.png';
+import healthcareImage from '../../../assets/73e3c245e0b07afd9a3344837647ffa74beed88c.png';
+import ecommerceImage from '../../../assets/f04184aaeb1543c205d7664196cbd97c1e473b0b.png';
+import educationImage from '../../../assets/9953c668ebf4cb74c98575d03c977cfc69974498.png';
+import financeImage from '../../../assets/4704389719e2fd5e09161cd14543715f19918051.png';
+import realEstateImage from '../../../assets/6515ebfdfd1f300e6e35a7422139614c08f011af.png';
+import professionalServicesImage from '../../../assets/6b8273e5e14f194dd5dfa0c1ebf52e6ce2ad7cff.png';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }
   }
 };
 

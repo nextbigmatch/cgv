@@ -5,16 +5,16 @@ import { useRef } from 'react';
 import OurClientsSection from '@/app/components/website/OurClientsSection';
 import MicroStatus from '@/app/components/website/MicroStatus';
 import LiveActivityInline from '@/app/components/website/LiveActivityInline';
-import heroImage from 'figma:asset/af7fa589b5a042a3cc468d2b6f2d36efcdac78cd.png';
-import testimonialAvatar from 'figma:asset/ab2383425def2f19100606a4bdddb972cb9d070f.png';
-import amalRohailAvatar from 'figma:asset/003c57366845b26630d9949f2b4a1ba8a55eb5cc.png';
-import julieMassicotteAvatar from 'figma:asset/59f008987f9297520dbc01f00c39b8d3cefdd05f.png';
-import mattShawAvatar from 'figma:asset/a9540f98905da8e58a31a5f8ecfed882149dac56.png';
-import andreaMirielloAvatar from 'figma:asset/a40c2cae1c83068cd46e19eeadf570cd0a0fc794.png';
+import heroImage from '../../../assets/af7fa589b5a042a3cc468d2b6f2d36efcdac78cd.png';
+import testimonialAvatar from '../../../assets/ab2383425def2f19100606a4bdddb972cb9d070f.png';
+import amalRohailAvatar from '../../../assets/003c57366845b26630d9949f2b4a1ba8a55eb5cc.png';
+import julieMassicotteAvatar from '../../../assets/59f008987f9297520dbc01f00c39b8d3cefdd05f.png';
+import mattShawAvatar from '../../../assets/a9540f98905da8e58a31a5f8ecfed882149dac56.png';
+import andreaMirielloAvatar from '../../../assets/a40c2cae1c83068cd46e19eeadf570cd0a0fc794.png';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
 
 // Custom easing
-const customEase = [0.25, 0.1, 0.25, 1];
+const customEase = [0.25, 0.1, 0.25, 1] as const;
 
 // Color constants (using hex/rgb instead of oklch for animations)
 const theme = {

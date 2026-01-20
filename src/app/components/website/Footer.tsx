@@ -10,7 +10,11 @@ const XIcon = () => (
   </svg>
 );
 
-export default function Footer() {
+interface FooterProps {
+  onConsultationClick?: () => void;
+}
+
+export default function Footer({ onConsultationClick }: FooterProps = {}) {
   const [contactInfo, setContactInfo] = useState('');
   const [submitted, setSubmitted] = useState(false);
 

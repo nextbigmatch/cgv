@@ -65,7 +65,7 @@ export default function ClientDashboard() {
   };
 
   const getStatusBadge = (status: string) => {
-    const badges: { [key: string]: { color: string; icon: JSX.Element } } = {
+    const badges: { [key: string]: { color: string; icon: React.ReactElement } } = {
       'Active': { 
         color: 'bg-green-500/10 text-green-400 border-green-500/20',
         icon: <Activity className="w-3 h-3" />

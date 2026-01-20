@@ -3,7 +3,11 @@ import { motion, AnimatePresence } from 'motion/react';
 import { MessageCircle } from 'lucide-react';
 import { ConsultationFlow } from '@/app/components/website/ConsultationFlow';
 
-export default function FloatingCTA() {
+interface FloatingCTAProps {
+  onConsultationClick?: () => void;
+}
+
+export default function FloatingCTA({ onConsultationClick }: FloatingCTAProps = {}) {
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
