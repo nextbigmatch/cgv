@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ArrowRight, Calendar, Phone, MessageSquare, CheckCircle2, Clock, UserCircle } from 'lucide-react';
+import { X, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 interface ConsultationFlowProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-type Step = 'trust' | 'context' | 'method' | 'calendar' | 'callback' | 'message' | 'confirmation';
+type Step = 'trust' | 'context' | 'confirmation';
 
 export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
   const [step, setStep] = useState<Step>('trust');
@@ -16,9 +16,7 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
     email: '',
     company: '',
     lookingFor: '',
-    message: '',
-    preferredDate: '',
-    preferredTime: ''
+    message: ''
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -27,11 +25,7 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
 
   const handleContextSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setStep('method');
-  };
-
-  const handleMethodChoice = (method: 'calendar' | 'callback' | 'message') => {
-    setStep(method);
+    handleFinalSubmit();
   };
 
   const handleFinalSubmit = () => {
@@ -47,9 +41,7 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
       email: '',
       company: '',
       lookingFor: '',
-      message: '',
-      preferredDate: '',
-      preferredTime: ''
+      message: ''
     });
     onClose();
   };
@@ -198,6 +190,19 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                         </select>
                       </div>
 
+                      <div>
+                        <label className="block text-sm font-medium text-neutral-300 mb-2">
+                          Message (Optional)
+                        </label>
+                        <textarea
+                          value={formData.message}
+                          onChange={(e) => handleInputChange('message', e.target.value)}
+                          rows={4}
+                          className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF7029] transition-colors resize-none"
+                          placeholder="Share a quick overview, goals, or timelines to help us prepare"
+                        />
+                      </div>
+
                       <div className="flex gap-4">
                         <button
                           type="button"
@@ -210,274 +215,11 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                           type="submit"
                           className="flex-1 bg-[#FF7029] hover:bg-[#FF8540] text-white px-8 py-4 rounded-full font-medium transition-colors flex items-center justify-center gap-2"
                         >
-                          Continue
+                          Submit
                           <ArrowRight className="w-5 h-5" />
                         </button>
                       </div>
                     </form>
-                  </motion.div>
-                )}
-
-                {/* METHOD CHOICE */}
-                {step === 'method' && (
-                  <motion.div
-                    key="method"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                  >
-                    <div className="mb-8">
-                      <h2 className="text-3xl font-bold mb-2">How Would You Like to Talk?</h2>
-                      <p className="text-neutral-400">Choose what works best for you</p>
-                    </div>
-
-                    <div className="space-y-4">
-                      <button
-                        onClick={() => handleMethodChoice('calendar')}
-                        className="w-full bg-[#1A1A1A] hover:bg-[#252525] border border-neutral-800 hover:border-[#FF7029] rounded-2xl p-6 text-left transition-all group"
-                      >
-                        <div className="flex items-start gap-4">
-                          <div className="w-12 h-12 bg-[#FF7029] bg-opacity-10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-opacity-20 transition-colors">
-                            <Calendar className="w-6 h-6 text-[#FF7029]" />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="text-xl font-bold mb-1">Schedule a Call</h3>
-                            <p className="text-neutral-400">Choose a time that works for you</p>
-                          </div>
-                          <ArrowRight className="w-5 h-5 text-neutral-600 group-hover:text-[#FF7029] transition-colors mt-3" />
-                        </div>
-                      </button>
-
-                      <button
-                        onClick={() => handleMethodChoice('callback')}
-                        className="w-full bg-[#1A1A1A] hover:bg-[#252525] border border-neutral-800 hover:border-[#FF7029] rounded-2xl p-6 text-left transition-all group"
-                      >
-                        <div className="flex items-start gap-4">
-                          <div className="w-12 h-12 bg-[#FF7029] bg-opacity-10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-opacity-20 transition-colors">
-                            <Phone className="w-6 h-6 text-[#FF7029]" />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="text-xl font-bold mb-1">Get a Call Back</h3>
-                            <p className="text-neutral-400">We'll reach out within 24 business hours</p>
-                          </div>
-                          <ArrowRight className="w-5 h-5 text-neutral-600 group-hover:text-[#FF7029] transition-colors mt-3" />
-                        </div>
-                      </button>
-
-                      <button
-                        onClick={() => handleMethodChoice('message')}
-                        className="w-full bg-[#1A1A1A] hover:bg-[#252525] border border-neutral-800 hover:border-[#FF7029] rounded-2xl p-6 text-left transition-all group"
-                      >
-                        <div className="flex items-start gap-4">
-                          <div className="w-12 h-12 bg-[#FF7029] bg-opacity-10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-opacity-20 transition-colors">
-                            <MessageSquare className="w-6 h-6 text-[#FF7029]" />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="text-xl font-bold mb-1">Start With Message</h3>
-                            <p className="text-neutral-400">Prefer to explain in writing first</p>
-                          </div>
-                          <ArrowRight className="w-5 h-5 text-neutral-600 group-hover:text-[#FF7029] transition-colors mt-3" />
-                        </div>
-                      </button>
-                    </div>
-
-                    <button
-                      onClick={() => setStep('context')}
-                      className="w-full mt-6 bg-neutral-800 hover:bg-neutral-700 text-white px-8 py-4 rounded-full font-medium transition-colors"
-                    >
-                      Back
-                    </button>
-                  </motion.div>
-                )}
-
-                {/* CALENDAR BOOKING */}
-                {step === 'calendar' && (
-                  <motion.div
-                    key="calendar"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                  >
-                    <div className="mb-8">
-                      <h2 className="text-3xl font-bold mb-2">Schedule Your Call</h2>
-                      <p className="text-neutral-400">Pick a time that works for you</p>
-                    </div>
-
-                    <div className="space-y-6">
-                      <div>
-                        <label className="block text-sm font-medium text-neutral-300 mb-2">
-                          Preferred Date
-                        </label>
-                        <input
-                          type="date"
-                          value={formData.preferredDate}
-                          onChange={(e) => handleInputChange('preferredDate', e.target.value)}
-                          min={new Date().toISOString().split('T')[0]}
-                          className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF7029] transition-colors"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-neutral-300 mb-2">
-                          Preferred Time Slot (Business Hours)
-                        </label>
-                        <select
-                          value={formData.preferredTime}
-                          onChange={(e) => handleInputChange('preferredTime', e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF7029] transition-colors"
-                        >
-                          <option value="">Select a time</option>
-                          <option value="09:00">09:00 AM</option>
-                          <option value="10:00">10:00 AM</option>
-                          <option value="11:00">11:00 AM</option>
-                          <option value="12:00">12:00 PM</option>
-                          <option value="14:00">02:00 PM</option>
-                          <option value="15:00">03:00 PM</option>
-                          <option value="16:00">04:00 PM</option>
-                        </select>
-                      </div>
-
-                      <div className="bg-[#1A1A1A] border border-neutral-800 rounded-xl p-4 flex items-start gap-3">
-                        <Clock className="w-5 h-5 text-[#FF7029] flex-shrink-0 mt-0.5" />
-                        <div className="text-sm text-neutral-400">
-                          <p className="font-medium text-neutral-300 mb-1">30-minute session</p>
-                          <p>We'll send you a calendar invite with meeting details</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-4 mt-8">
-                      <button
-                        onClick={() => setStep('method')}
-                        className="flex-1 bg-neutral-800 hover:bg-neutral-700 text-white px-8 py-4 rounded-full font-medium transition-colors"
-                      >
-                        Back
-                      </button>
-                      <button
-                        onClick={handleFinalSubmit}
-                        className="flex-1 bg-[#FF7029] hover:bg-[#FF8540] text-white px-8 py-4 rounded-full font-medium transition-colors"
-                      >
-                        Confirm Booking
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* CALLBACK REQUEST */}
-                {step === 'callback' && (
-                  <motion.div
-                    key="callback"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                  >
-                    <div className="mb-8">
-                      <h2 className="text-3xl font-bold mb-2">We'll Call You Back</h2>
-                      <p className="text-neutral-400">Within 24 business hours</p>
-                    </div>
-
-                    <div className="space-y-6">
-                      <div className="bg-[#1A1A1A] border border-neutral-800 rounded-xl p-6">
-                        <div className="flex items-start gap-3 mb-4">
-                          <CheckCircle2 className="w-5 h-5 text-[#FF7029] flex-shrink-0 mt-0.5" />
-                          <div>
-                            <p className="font-medium text-neutral-300 mb-1">We've saved your details</p>
-                            <p className="text-sm text-neutral-400">Name: {formData.name}</p>
-                            <p className="text-sm text-neutral-400">Email: {formData.email}</p>
-                            <p className="text-sm text-neutral-400">Interest: {formData.lookingFor}</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm font-medium text-neutral-300 mb-2">
-                          Best time to reach you (Optional)
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.message}
-                          onChange={(e) => handleInputChange('message', e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF7029] transition-colors"
-                          placeholder="e.g., Weekday mornings work best"
-                        />
-                      </div>
-
-                      <div className="bg-[#1A1A1A] border border-neutral-800 rounded-xl p-4 flex items-start gap-3">
-                        <Phone className="w-5 h-5 text-[#FF7029] flex-shrink-0 mt-0.5" />
-                        <div className="text-sm text-neutral-400">
-                          <p className="font-medium text-neutral-300 mb-1">What happens next?</p>
-                          <p>One of our team members will reach out to you via email or phone to schedule a convenient time</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-4 mt-8">
-                      <button
-                        onClick={() => setStep('method')}
-                        className="flex-1 bg-neutral-800 hover:bg-neutral-700 text-white px-8 py-4 rounded-full font-medium transition-colors"
-                      >
-                        Back
-                      </button>
-                      <button
-                        onClick={handleFinalSubmit}
-                        className="flex-1 bg-[#FF7029] hover:bg-[#FF8540] text-white px-8 py-4 rounded-full font-medium transition-colors"
-                      >
-                        Submit Request
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* MESSAGE */}
-                {step === 'message' && (
-                  <motion.div
-                    key="message"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                  >
-                    <div className="mb-8">
-                      <h2 className="text-3xl font-bold mb-2">Tell Us More</h2>
-                      <p className="text-neutral-400">Share your requirements in detail</p>
-                    </div>
-
-                    <div className="space-y-6">
-                      <div>
-                        <label className="block text-sm font-medium text-neutral-300 mb-2">
-                          Your Message
-                        </label>
-                        <textarea
-                          value={formData.message}
-                          onChange={(e) => handleInputChange('message', e.target.value)}
-                          rows={6}
-                          className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF7029] transition-colors resize-none"
-                          placeholder="Tell us about your project, goals, timeline, or any specific requirements..."
-                        />
-                      </div>
-
-                      <div className="bg-[#1A1A1A] border border-neutral-800 rounded-xl p-4 flex items-start gap-3">
-                        <MessageSquare className="w-5 h-5 text-[#FF7029] flex-shrink-0 mt-0.5" />
-                        <div className="text-sm text-neutral-400">
-                          <p className="font-medium text-neutral-300 mb-1">We'll review and respond</p>
-                          <p>Our team will carefully read your message and respond with next steps within 24 business hours</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-4 mt-8">
-                      <button
-                        onClick={() => setStep('method')}
-                        className="flex-1 bg-neutral-800 hover:bg-neutral-700 text-white px-8 py-4 rounded-full font-medium transition-colors"
-                      >
-                        Back
-                      </button>
-                      <button
-                        onClick={handleFinalSubmit}
-                        className="flex-1 bg-[#FF7029] hover:bg-[#FF8540] text-white px-8 py-4 rounded-full font-medium transition-colors"
-                      >
-                        Send Message
-                      </button>
-                    </div>
                   </motion.div>
                 )}
 
@@ -502,10 +244,6 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                       <p className="text-sm text-neutral-400 mb-4">
                         You'll also receive access to your private project dashboard once we begin.
                       </p>
-                      <div className="flex items-center gap-2 text-sm text-neutral-500">
-                        <Clock className="w-4 h-4" />
-                        <span>Expected response: Within 24 business hours</span>
-                      </div>
                     </div>
 
                     <button

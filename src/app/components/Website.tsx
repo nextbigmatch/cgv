@@ -17,6 +17,8 @@ import ClientLogin from '@/app/components/website/ClientLogin';
 import ClientDashboard from '@/app/components/website/ClientDashboard';
 import FloatingCTA from '@/app/components/website/FloatingCTA';
 import { ConsultationFlow } from '@/app/components/website/ConsultationFlow';
+import TermsPage from '@/app/components/website/TermsPage';
+import PrivacyPolicyPage from '@/app/components/website/PrivacyPolicyPage';
 
 export default function Website() {
   const [consultationOpen, setConsultationOpen] = useState(false);
@@ -45,6 +47,8 @@ export default function Website() {
                 <Route path="/careers" element={<CareersPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/brand-profile" element={<BrandProfilePhoto />} />
+                <Route path="/terms" element={<TermsPage />} />
+                <Route path="/privacy" element={<PrivacyPolicyPage />} />
               </Routes>
             </main>
             <Footer onConsultationClick={() => setConsultationOpen(true)} />

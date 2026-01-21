@@ -124,6 +124,16 @@ export default function Footer({ onConsultationClick }: FooterProps = {}) {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link to="/terms" className="text-neutral-400 hover:text-[#FF6A2A] transition-colors block">
+                  Terms &amp; Conditions
+                </Link>
+              </li>
+              <li>
+                <Link to="/privacy" className="text-neutral-400 hover:text-[#FF6A2A] transition-colors block">
+                  Privacy Policy
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -131,7 +141,9 @@ export default function Footer({ onConsultationClick }: FooterProps = {}) {
           <div className="lg:col-span-4 flex flex-col h-full">
             <h3 className="text-xl font-bold mb-6">Contacts</h3>
             <div className="space-y-4 mb-auto">
-              <p className="text-neutral-400">+91 8054932039</p>
+              <p className="text-neutral-300 font-medium">Office Contact: <span className="text-neutral-400">+91 80549 32039</span></p>
+              <p className="text-neutral-300 font-medium">Business Consultant: <span className="text-neutral-400">+91 70060 37268</span></p>
+              <p className="text-neutral-300 font-medium">Business Consultant: <span className="text-neutral-400">+91 62804 40316</span></p>
               <p className="text-neutral-400">info@coregrowvision.com</p>
               <p className="text-neutral-400">projects@coregrowvision.com</p>
               <p className="text-neutral-400">9th Floor, Municipal Heights, Sector 104, Mohali, Punjab 160055, India</p>
