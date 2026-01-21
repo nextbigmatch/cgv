@@ -1,26 +1,27 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { X, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { X, ArrowRight, CheckCircle2 } from "lucide-react";
 
 interface ConsultationFlowProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-type Step = 'trust' | 'context' | 'confirmation';
+type Step = "trust" | "context" | "confirmation";
 
 export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
-  const [step, setStep] = useState<Step>('trust');
+  const [step, setStep] = useState<Step>("trust");
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    lookingFor: '',
-    message: ''
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    lookingFor: "",
+    message: "",
   });
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleContextSubmit = (e: React.FormEvent) => {
@@ -30,18 +31,19 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
 
   const handleFinalSubmit = () => {
     // Here you would send data to backend/Supabase
-    console.log('Consultation request:', formData);
-    setStep('confirmation');
+    console.log("Consultation request:", formData);
+    setStep("confirmation");
   };
 
   const resetAndClose = () => {
-    setStep('trust');
+    setStep("trust");
     setFormData({
-      name: '',
-      email: '',
-      company: '',
-      lookingFor: '',
-      message: ''
+      name: "",
+      email: "",
+      company: "",
+      phone: "",
+      lookingFor: "",
+      message: "",
     });
     onClose();
   };
@@ -52,7 +54,7 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
         <div
           onClick={resetAndClose}
           className="fixed inset-0 bg-black bg-opacity-70 z-[100] backdrop-blur-sm flex items-center justify-center p-4"
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: "pointer" }}
         >
           {/* Modal */}
           <motion.div
@@ -61,7 +63,7 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             onClick={(e) => e.stopPropagation()}
             className="bg-[#0F0F0F] border border-neutral-800 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative"
-            style={{ cursor: 'default' }}
+            style={{ cursor: "default" }}
           >
             {/* Close Button */}
             <button
@@ -74,7 +76,7 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
             <div className="p-8 sm:p-12">
               <AnimatePresence mode="wait">
                 {/* TRUST SCREEN */}
-                {step === 'trust' && (
+                {step === "trust" && (
                   <motion.div
                     key="trust"
                     initial={{ opacity: 0, x: 20 }}
@@ -86,7 +88,8 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                         Let's Understand Your Requirements
                       </h2>
                       <p className="text-lg text-neutral-400 leading-relaxed max-w-lg mx-auto">
-                        This free consultation helps us understand your goals and suggest the right approach. No sales pressure.
+                        This free consultation helps us understand your goals
+                        and suggest the right approach. No sales pressure.
                       </p>
                     </div>
 
@@ -106,7 +109,7 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                     </div>
 
                     <button
-                      onClick={() => setStep('context')}
+                      onClick={() => setStep("context")}
                       className="w-full bg-[#FF7029] hover:bg-[#FF8540] text-white px-8 py-4 rounded-full font-medium transition-colors flex items-center justify-center gap-2"
                     >
                       Continue
@@ -116,7 +119,7 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                 )}
 
                 {/* CONTEXT FORM */}
-                {step === 'context' && (
+                {step === "context" && (
                   <motion.div
                     key="context"
                     initial={{ opacity: 0, x: 20 }}
@@ -124,8 +127,12 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                     exit={{ opacity: 0, x: -20 }}
                   >
                     <div className="mb-8">
-                      <h2 className="text-3xl font-bold mb-2 text-[#FF7029]">Quick Context</h2>
-                      <p className="text-neutral-400">This will only take 30 seconds</p>
+                      <h2 className="text-3xl font-bold mb-2 text-[#FF7029]">
+                        Quick Context
+                      </h2>
+                      <p className="text-neutral-400">
+                        This will only take 30 seconds
+                      </p>
                     </div>
 
                     <form onSubmit={handleContextSubmit} className="space-y-6">
@@ -137,24 +144,45 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                           type="text"
                           required
                           value={formData.name}
-                          onChange={(e) => handleInputChange('name', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("name", e.target.value)
+                          }
                           className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF7029] transition-colors"
                           placeholder="John Smith"
                         />
                       </div>
 
-                      <div>
-                        <label className="block text-sm font-medium text-neutral-300 mb-2">
-                          Work Email *
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
-                          className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF7029] transition-colors"
-                          placeholder="john@company.com"
-                        />
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-neutral-300 mb-2">
+                            Work Email *
+                          </label>
+                          <input
+                            type="email"
+                            required
+                            value={formData.email}
+                            onChange={(e) =>
+                              handleInputChange("email", e.target.value)
+                            }
+                            className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF7029] transition-colors"
+                            placeholder="john@company.com"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-neutral-300 mb-2">
+                            Phone
+                          </label>
+                          <input
+                            type="tel"
+                            value={formData.phone}
+                            onChange={(e) =>
+                              handleInputChange("phone", e.target.value)
+                            }
+                            className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF7029] transition-colors"
+                            placeholder="+91 98765 43210"
+                          />
+                        </div>
                       </div>
 
                       <div>
@@ -164,7 +192,9 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                         <input
                           type="text"
                           value={formData.company}
-                          onChange={(e) => handleInputChange('company', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("company", e.target.value)
+                          }
                           className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF7029] transition-colors"
                           placeholder="Your company name"
                         />
@@ -177,7 +207,9 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                         <select
                           required
                           value={formData.lookingFor}
-                          onChange={(e) => handleInputChange('lookingFor', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("lookingFor", e.target.value)
+                          }
                           className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF7029] transition-colors"
                         >
                           <option value="">Select an option</option>
@@ -186,7 +218,9 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                           <option value="seo">SEO / Digital Marketing</option>
                           <option value="brand">Brand / Design</option>
                           <option value="ecommerce">E-Commerce Solution</option>
-                          <option value="consultation">Consultation Only</option>
+                          <option value="consultation">
+                            Consultation Only
+                          </option>
                         </select>
                       </div>
 
@@ -196,7 +230,9 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                         </label>
                         <textarea
                           value={formData.message}
-                          onChange={(e) => handleInputChange('message', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("message", e.target.value)
+                          }
                           rows={4}
                           className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#FF7029] transition-colors resize-none"
                           placeholder="Share a quick overview, goals, or timelines to help us prepare"
@@ -206,7 +242,7 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                       <div className="flex gap-4">
                         <button
                           type="button"
-                          onClick={() => setStep('trust')}
+                          onClick={() => setStep("trust")}
                           className="flex-1 bg-neutral-800 hover:bg-neutral-700 text-white px-8 py-4 rounded-full font-medium transition-colors"
                         >
                           Back
@@ -224,7 +260,7 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                 )}
 
                 {/* CONFIRMATION */}
-                {step === 'confirmation' && (
+                {step === "confirmation" && (
                   <motion.div
                     key="confirmation"
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -234,15 +270,19 @@ export function ConsultationFlow({ isOpen, onClose }: ConsultationFlowProps) {
                     <div className="w-20 h-20 bg-[#FF7029] bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
                       <CheckCircle2 className="w-10 h-10 text-[#FF7029]" />
                     </div>
-                    
-                    <h2 className="text-3xl font-bold mb-4">Thanks for Reaching Out</h2>
+
+                    <h2 className="text-3xl font-bold mb-4">
+                      Thanks for Reaching Out
+                    </h2>
                     <p className="text-lg text-neutral-400 mb-8 max-w-md mx-auto leading-relaxed">
-                      One of our core team members will personally review your request and get back to you shortly.
+                      One of our core team members will personally review your
+                      request and get back to you shortly.
                     </p>
 
                     <div className="bg-[#1A1A1A] border border-neutral-800 rounded-2xl p-6 mb-8 text-left">
                       <p className="text-sm text-neutral-400 mb-4">
-                        You'll also receive access to your private project dashboard once we begin.
+                        You'll also receive access to your private project
+                        dashboard once we begin.
                       </p>
                     </div>
 
